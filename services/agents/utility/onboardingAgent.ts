@@ -34,14 +34,14 @@ export default class OnboardingAgent implements IAgent {
     // --- State Logic: Handle resuming after account creation ---
     const createAccountResult = context.collected_info.specialist_results?.[0];
     if (createAccountResult && createAccountResult.context?.goal === 'createAccount') {
-        console.log('[OnboardingAgent] Resuming from CreateAccountAgent result.');
-        // MODIFICATION: Look for VeChain-specific keys from the createAccountAgent's context.
-        const { lastCreatedAddress, lastCreatedAccountPrivateKey } = createAccountResult.context.collected_info;
-        if (lastCreatedAddress && lastCreatedAccountPrivateKey) {
-            updatedContext.collected_info.address = lastCreatedAddress;
-            updatedContext.collected_info.privateKey = lastCreatedAccountPrivateKey;
-            delete updatedContext.collected_info.specialist_results;
-        }
+    console.log('[OnboardingAgent] Resuming from CreateAccountAgent result.');
+    // FIX: Use correct keys from createAccountAgent result
+    const { lastCreatedVechainAddress, lastCreatedVechainPrivateKey } = createAccountResult.context.collected_info;
+    if (lastCreatedVechainAddress && lastCreatedVechainPrivateKey) {
+      updatedContext.collected_info.address = lastCreatedVechainAddress;
+      updatedContext.collected_info.privateKey = lastCreatedVechainPrivateKey;
+      delete updatedContext.collected_info.specialist_results;
+    }
     }
 
     // --- Main Logic: Find the next piece of info to collect ---
