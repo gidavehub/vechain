@@ -121,7 +121,7 @@ export default async function handler(
         const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
         const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
 
-        const prompt = `Analyze the following articles about "${query}" in the context of Hedera Hashgraph and provide:
+        const prompt = `Analyze the following articles about "${query}" in the context of Vechain Blockchain and provide:
 1. A comprehensive summary
 2. Key points of consensus across sources
 3. Any notable differences or contradictions
